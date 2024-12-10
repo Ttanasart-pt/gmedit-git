@@ -1,0 +1,56 @@
+#commit-form {
+    left: 0;
+    top: unset;
+    right: 0;
+    bottom: 16px;
+    margin: auto;
+
+    width: 480px;
+    height: fit-content;
+    padding: 8px;
+    border-radius: 8px;
+    resize: none;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 1;
+
+    transition: all 0.2s ease;
+    overflow: hidden;
+}
+
+#commit-msg {
+    height: 30px;
+}
+
+#commit-log {
+    flex: 1;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 14px;
+
+    text-align: center;
+    align-self: center;
+
+    width: max-content;
+    overflow: hidden;
+}
+#commit-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 4px;
+    padding-bottom: 8px;
+    border-radius: 8px;
+    overflow-y: auto;
+    max-height: 240px;
+}
+
+#commit-list div {
+    font-family: 'fira code', monospace;
+    font-size: 12px;
+    margin: 0px;
+
+    color: #9e9eb0;
+}

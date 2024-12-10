@@ -1,0 +1,6 @@
+{
+    "name": "git",
+    "scripts": ["main.js"],
+    "stylesheets": ["git.css"],
+    "dependencies": []
+}
