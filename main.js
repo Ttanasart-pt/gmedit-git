@@ -52,7 +52,7 @@ function commit(msg, push = false) {
     log.innerHTML = "Committing changes...";
     
     exec(cmd, { cwd: path }, (error, stdout, stderr) => {
-        //setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
+        setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
 
         if (error) {
             log.innerHTML = "Failed to commit changes. " + error.message;
