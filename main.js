@@ -44,7 +44,7 @@ function commit(msg, push = false) {
     let log = document.getElementById("commit-log");
 
     form.style.width = "320px";
-    form.style.height = "32px";
+    form.style.height = "36px";
     form.style.top = "unset";
     form.style.bottom = "16px";
     form.style.borderRadius = "16px";
@@ -52,7 +52,7 @@ function commit(msg, push = false) {
     log.innerHTML = "Committing changes...";
     
     exec(cmd, { cwd: path }, (error, stdout, stderr) => {
-        setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
+        //setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
 
         if (error) {
             log.innerHTML = "Failed to commit changes. " + error.message;
@@ -118,6 +118,7 @@ function initCommit() {
             log.id = "commit-log";
             form.appendChild(log);
             i.remove();
+            list.remove();
 
             commit(i.value, e.ctrlKey);
         }
