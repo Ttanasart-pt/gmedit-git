@@ -27,6 +27,7 @@
 })();
 
 const { exec } = require('child_process');
+fileChanged = [];
 
 function project_current_get() {
 	const proj = $gmedit['gml.Project'].current;
@@ -37,11 +38,28 @@ function project_current_get() {
 function commit(msg, push = false) {
     let project = project_current_get();
     let path = project.dir;
+
     let cmd = "git add . && git commit -m \"" + msg + "\"";
     if (push) cmd += " && git push";
 
     let form = document.getElementById("commit-form");
     let log = document.getElementById("commit-log");
+
+    if(push) log.innerHTML = "Committing and pushing changes...";
+    else     log.innerHTML = "Committing changes...";
+
+    var list = document.getElementById("commit-list");
+    if(fileChanged.length == 0) {
+        
+        if(push) {
+            cmd = "git push";
+            log.innerHTML = "Pushing changes...";
+        } else {
+            log.innerHTML = "No changes to commit.";
+            setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
+            return;
+        }
+    }
 
     form.style.width = "320px";
     form.style.height = "36px";
@@ -49,8 +67,6 @@ function commit(msg, push = false) {
     form.style.bottom = "16px";
     form.style.borderRadius = "16px";
 
-    log.innerHTML = "Committing changes...";
-    
     exec(cmd, { cwd: path }, (error, stdout, stderr) => {
         setTimeout(() => { form.style.opacity = "0"; setTimeout(() => { form.remove(); }, 1000); }, 2500);
 
@@ -79,13 +95,20 @@ function getChanged() {
         }
 
         console.log(stdout);
-        let files = stdout.split("\n");
-        files.pop();
+        fileChanged = stdout.split("\n");
+        fileChanged.pop();
 
-        for (let i = 0; i < files.length; i++) {
+        if(fileChanged.length == 0) {
             let file = document.createElement("div");
-            file.innerHTML = files[i];
+            file.innerHTML = "No changes to commit.";
             list.appendChild(file);
+            
+        } else {
+            for (let i = 0; i < fileChanged.length; i++) {
+                let file = document.createElement("div");
+                file.innerHTML = fileChanged[i];
+                list.appendChild(file);
+            }
         }
     });
 }
